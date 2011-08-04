@@ -50,11 +50,7 @@ main(int argc, char* argv[]){
 	
 	gl::graphics g(argc, argv, 500, 500);
 	
-//	gl::displayfunc(g, make_geometry_renderer(box));
-	gl::displayfunc(g, [&](){
-		glColor3d(1.0f, 0.0f, 0.0f);
-		gl::render(box);
-	});
+	gl::displayfunc(g, make_geometry_renderer(box));
 	
 	gl::idlefunc(g, &idle);
 	

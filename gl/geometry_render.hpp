@@ -29,13 +29,6 @@ namespace detail{
 namespace mpl = boost::mpl;
 namespace bg  = boost::geometry;
 
-// typedef mpl::vector<
-// 	mpl::pair<boost::is_same<short,  mpl::_1>, mpl::always<mpl::size_t<GL_SHORT> > >,
-// 	mpl::pair<boost::is_same<int,    mpl::_1>, mpl::always<mpl::size_t<GL_INT> > >,
-// 	mpl::pair<boost::is_same<float,  mpl::_1>, mpl::always<mpl::size_t<GL_FLOAT> > >,
-// 	mpl::pair<boost::is_same<double, mpl::_1>, mpl::always<mpl::size_t<GL_DOUBLE > > >
-// > glVertexPointer_value_types;
-
 typedef mpl::map<
 	mpl::pair<short,  mpl::size_t<GL_SHORT> >,
 	mpl::pair<int,    mpl::size_t<GL_INT> >,
