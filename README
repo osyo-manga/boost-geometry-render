@@ -1,0 +1,21 @@
+//
+// boost-geometry-render
+//
+// Copyright (c) 2011 
+// osyo-manga : http://d.hatena.ne.jp/osyo-manga/
+//
+// License:
+// Boost Software License - Version 1.0
+// <http://www.boost.org/LICENSE_1_0.txt>
+//
+
+:概要
+Boost.Geometry の簡易描画を行うための GUI ライブラリです。
+glut が使える環境であれば動くと思います。
+
+:TODO
+
+:既存の問題
+凹ポリゴンを model::polygon で描画しようとするとうまく描画が行われません。
+model::linestring などに変換するなどして回避して下さい。
+
