@@ -21,8 +21,6 @@
 
 namespace bg = boost::geometry;
 
-typedef bg::model::d2::point_xy<float> point_type;
-
 template<typename Geometry, typename Transformer>
 void
 transform(Geometry& geometry, Transformer const& transfomer){
@@ -33,6 +31,7 @@ transform(Geometry& geometry, Transformer const& transfomer){
 
 template<typename Geometry>
 struct move_geometry{
+	typedef typename bg::point_type<Geometry>::type point_type;
 	typedef bg::strategy::transform::translate_transformer<point_type, point_type> transformer;
 	move_geometry(Geometry& geometry) : geometry_(geometry){}
 	
@@ -80,6 +79,9 @@ idle(){
 
 int
 main(int argc, char* argv[]){
+
+	typedef bg::model::d2::point_xy<float> point_type;
+
 	bg::model::box<point_type> b1(point_type(-0.5f, -0.1f), point_type(0.4f, 0.4f));
 	
 	gl::graphics g(argc, argv, 500, 500);
