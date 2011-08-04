@@ -1,5 +1,5 @@
 //
-// kmt-library
+// boost-geometry-render
 //
 // Copyright (c) 2011 
 // osyo-manga : http://d.hatena.ne.jp/osyo-manga/
