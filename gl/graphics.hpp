@@ -43,6 +43,7 @@ struct graphics : boost::noncopyable{
 	boost::signals2::signal<void(int, int)> reshapefunc_;
 	boost::signals2::signal<void()> idlefunc_;
 	boost::signals2::signal<void(unsigned char, int, int)> keyboardfunc_;
+	boost::signals2::signal<void(int, int, int, int)> mousefunc_;
 };
 
 void
@@ -113,6 +114,22 @@ void
 keyboardfunc(graphics& g, F f){
 	keyboardfunc(boost::function<void(unsigned char, int, int)>(boost::ref(g.keyboardfunc_)));
 	g.keyboardfunc_.connect(f);
+}
+
+template<typename F>
+void
+mousefunc(F f){
+	typedef void(*func_type)(int, int, int, int);
+	glutMouseFunc(
+		detail::make_c_function<struct graphics_glutMouseFunc, func_type>(f)
+	);
+}
+
+template<typename F>
+void
+mousefunc(graphics& g, F f){
+	mousefunc(boost::function<void(int, int, int, int)>(boost::ref(g.mousefunc_)));
+	g.mousefunc_.connect(f);
 }
 
 
