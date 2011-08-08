@@ -76,8 +76,10 @@ struct geometry_render<boost::geometry::multi_point_tag>{
 	template<typename T>
 	static void apply(T const& geometry){
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(bg::dimension<T>::value,
-			glVertexPointer_value_type<T>::value, 0, &geometry[0]);
+		if(!geometry.empty()){
+			glVertexPointer(bg::dimension<T>::value,
+				glVertexPointer_value_type<T>::value, 0, &geometry[0]);
+		}
 		glDrawArrays(GL_POINTS, 0, geometry.size());
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
