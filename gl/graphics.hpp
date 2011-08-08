@@ -65,7 +65,7 @@ template<typename F>
 void
 displayfunc(graphics& g, F f){
 	displayfunc(boost::function<void()>(boost::bind(&graphics::render, &g)));
-	g.displayfunc_.connect(f);
+	g.displayfunc_.connect(boost::function<void()>(f));
 }
 
 template<typename F>
@@ -81,7 +81,7 @@ template<typename F>
 void
 reshapefunc(graphics& g, F f){
 	reshapefunc(boost::function<void(int, int)>(boost::ref(g.reshapefunc_)));
-	g.reshapefunc_.connect(f);
+	g.reshapefunc_.connect(boost::function<void(int, int)>(f));
 }
 
 template<typename F>
@@ -97,7 +97,7 @@ template<typename F>
 void
 idlefunc(graphics& g, F f){
 	idlefunc(boost::function<void()>(boost::ref(g.idlefunc_)));
-	g.idlefunc_.connect(f);
+	g.idlefunc_.connect(boost::function<void>(f));
 }
 
 template<typename F>
@@ -113,7 +113,7 @@ template<typename F>
 void
 keyboardfunc(graphics& g, F f){
 	keyboardfunc(boost::function<void(unsigned char, int, int)>(boost::ref(g.keyboardfunc_)));
-	g.keyboardfunc_.connect(f);
+	g.keyboardfunc_.connect(boost::function<void(usigned char, int, int)>(f));
 }
 
 template<typename F>
@@ -129,7 +129,7 @@ template<typename F>
 void
 mousefunc(graphics& g, F f){
 	mousefunc(boost::function<void(int, int, int, int)>(boost::ref(g.mousefunc_)));
-	g.mousefunc_.connect(f);
+	g.mousefunc_.connect(boost::function<void(int, int, int, int)>(f));
 }
 
 
