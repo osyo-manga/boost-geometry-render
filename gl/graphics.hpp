@@ -97,7 +97,7 @@ template<typename F>
 void
 idlefunc(graphics& g, F f){
 	idlefunc(boost::function<void()>(boost::ref(g.idlefunc_)));
-	g.idlefunc_.connect(boost::function<void>(f));
+	g.idlefunc_.connect(boost::function<void()>(f));
 }
 
 template<typename F>
