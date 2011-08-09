@@ -24,7 +24,7 @@ template<typename Geometry>
 struct geometry_renderer{
 	geometry_renderer(Geometry& geometry) : geometry_(geometry){};
 	void operator ()(){
-		glColor3d(1.0f, 0.0f, 0.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glPointSize(5.0f);
 		gl::render(geometry_);
 	}
