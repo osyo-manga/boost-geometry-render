@@ -22,7 +22,7 @@ namespace gl{
 
 template<typename T>
 void
-render(T& geometry);
+render(T const& geometry);
 
 namespace detail{
 
@@ -37,7 +37,7 @@ typedef mpl::map<
 > glVertexPointer_value_types;
 
 template<typename Geometry>
-struct glVertexPointer_value_type : 
+struct glVertexPointer_value_type :
 	mpl::at<
 		glVertexPointer_value_types,
 		typename boost::geometry::coordinate_type<Geometry>::type
@@ -72,14 +72,24 @@ struct geometry_render<boost::geometry::linestring_tag>{
 };
 
 template<>
+struct geometry_render<boost::geometry::point_tag>{
+	template<typename T>
+	static void apply(T const& geometry){
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(bg::dimension<T>::value,
+			glVertexPointer_value_type<T>::value, 0, &geometry.get<0>());
+		glDrawArrays(GL_POINTS, 0, 1);
+		glDisableClientState(GL_VERTEX_ARRAY);
+	}
+};
+
+template<>
 struct geometry_render<boost::geometry::multi_point_tag>{
 	template<typename T>
 	static void apply(T const& geometry){
 		glEnableClientState(GL_VERTEX_ARRAY);
-		if(!geometry.empty()){
-			glVertexPointer(bg::dimension<T>::value,
-				glVertexPointer_value_type<T>::value, 0, &geometry[0]);
-		}
+		glVertexPointer(bg::dimension<T>::value,
+			glVertexPointer_value_type<T>::value, 0, &geometry[0]);
 		glDrawArrays(GL_POINTS, 0, geometry.size());
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
@@ -99,10 +109,12 @@ struct geometry_render<boost::geometry::box_tag>{
 
 template<typename T>
 void
-render(T& geometry){
-	detail::geometry_render<
-		typename boost::geometry::tag<T>::type
-	>::apply(geometry);
+render(T const& geometry){
+	if(boost::geometry::num_points(geometry) > 0){
+		detail::geometry_render<
+			typename boost::geometry::tag<T>::type
+		>::apply(geometry);
+	}
 }
 
 } // namespace gl
