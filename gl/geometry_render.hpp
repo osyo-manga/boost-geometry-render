@@ -66,7 +66,7 @@ struct geometry_render<boost::geometry::linestring_tag>{
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(bg::dimension<T>::value,
 			glVertexPointer_value_type<T>::value, 0, &geometry[0]);
-		glDrawArrays(GL_LINE_LOOP, 0, geometry.size());
+		glDrawArrays(GL_LINE_STRIP, 0, geometry.size());
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
 };
