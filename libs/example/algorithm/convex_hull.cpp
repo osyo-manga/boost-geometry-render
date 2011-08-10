@@ -20,6 +20,7 @@
 #include <boost/geometry/algorithms/convex_hull.hpp>
 #include <boost/thread.hpp>
 #include <boost/range/algorithm/copy.hpp>
+#include <boost/geometry/algorithms/assign.hpp>
 
 template<typename Geometry>
 struct geometry_renderer{
@@ -50,8 +51,7 @@ struct convex_hull_renderer{
 		if(geometry_.empty())	return;
 		
 		polygon_type tmp;
-		tmp.outer().resize(geometry_.size());
-		boost::copy(geometry_, tmp.outer().begin());
+		bg::assign_points(tmp, geometry_);
 		bg::model::polygon<point_type> hull;
 		bg::convex_hull(tmp, hull);
 		glColor3f(0.0f, 1.0f, 0.0f);
