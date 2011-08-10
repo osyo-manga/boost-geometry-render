@@ -17,6 +17,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
+#include <boost/range/algorithm/for_each.hpp>
 
 namespace gl{
 
@@ -60,6 +61,18 @@ struct geometry_render<boost::geometry::polygon_tag>{
 };
 
 template<>
+struct geometry_render<boost::geometry::ring_tag>{
+	template<typename T>
+	static void apply(T const& geometry){
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(bg::dimension<T>::value,
+			glVertexPointer_value_type<T>::value, 0, &geometry[0]);
+		glDrawArrays(GL_POLYGON, 0, geometry.size());
+		glDisableClientState(GL_VERTEX_ARRAY);
+	}
+};
+
+template<>
 struct geometry_render<boost::geometry::linestring_tag>{
 	template<typename T>
 	static void apply(T const& geometry){
@@ -96,12 +109,30 @@ struct geometry_render<boost::geometry::multi_point_tag>{
 };
 
 template<>
+struct geometry_render<boost::geometry::multi_linestring_tag>{
+	template<typename T>
+	static void apply(T const& geometry){
+		typedef bg::model::linestring<typename bg::point_type<T>::type> linestring_type;
+		boost::for_each(geometry, &render<linestring_type>);
+	}
+};
+
+template<>
+struct geometry_render<boost::geometry::multi_polygon_tag>{
+	template<typename T>
+	static void apply(T const& geometry){
+		typedef bg::model::polygon<typename bg::point_type<T>::type> polygon_type;
+		boost::for_each(geometry, &render<polygon_type>);
+	}
+};
+
+template<>
 struct geometry_render<boost::geometry::box_tag>{
 	template<typename T>
 	static void apply(T const& geometry){
 		bg::model::polygon<typename bg::point_type<T>::type> polygon;
 		bg::convert(geometry, polygon);
-		return render(polygon);
+		render(polygon);
 	}
 };
 
