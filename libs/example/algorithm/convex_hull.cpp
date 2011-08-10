@@ -54,7 +54,7 @@ struct convex_hull_renderer{
 		boost::copy(geometry_, tmp.outer().begin());
 		bg::model::polygon<point_type> hull;
 		bg::convex_hull(tmp, hull);
-		glColor3d(0.0f, 1.0f, 0.0f);
+		glColor3f(0.0f, 1.0f, 0.0f);
 		gl::render(hull);
 	}
 private:
@@ -72,6 +72,7 @@ template<typename Geometry>
 struct point_adder{
 	point_adder(Geometry& geometry) : geometry_(geometry){};
 	void operator ()(int button, int state, int x, int y){
+		if(button != GLUT_LEFT_BUTTON || state != GLUT_DOWN)	return;
 		namespace bg = boost::geometry;
 		typename bg::point_type<Geometry>::type point(x / 250.0f - 1.0f, y / -250.0f + 1.0f);
 		geometry_.push_back(point);
