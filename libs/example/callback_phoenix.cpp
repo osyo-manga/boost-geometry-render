@@ -40,9 +40,9 @@ main(int argc, char* argv[]){
 	gl::graphics g(argc, argv, 500, 500);
 
 	gl::displayfunc(g, (
-			phx::bind(boost::bind(&glColor3f, 1.0f, 0.0f, 0.0f)),
-			phx::bind(boost::bind(&glPointSize, 3.0f)),
-			phx::bind(gl::render<multi_point_type>, phx::ref(multi_point))
+		phx::bind(boost::bind(&glColor3f, 1.0f, 0.0f, 0.0f)),
+		phx::bind(boost::bind(&glPointSize, 3.0f)),
+		phx::bind(gl::render<multi_point_type>, phx::ref(multi_point))
 	));
 	gl::idlefunc(g, (
 		phx::bind(boost::this_thread::sleep<boost::posix_time::milliseconds>,
