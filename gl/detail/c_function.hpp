@@ -58,7 +58,7 @@ make_c_function(F f){
 	typedef c_function<UUID, F, 
 		typename boost::function_types::result_type<func_type>::type,
 		typename boost::function_types::parameter_types<func_type>::type,
-		boost::mpl::size<boost::function_types::parameter_types<func_type>::type>::value
+		boost::mpl::size<typename boost::function_types::parameter_types<func_type>::type>::value
 	> c_function_type;
 	c_function_type::func_ = f;
 	return &c_function_type::apply;

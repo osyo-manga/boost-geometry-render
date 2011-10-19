@@ -10,6 +10,7 @@
 //
 #include <cstdlib>
 #include <gl/glut.h>
+#include <boost/geometry/geometries/linestring.hpp>
 #include <gl/graphics.hpp>
 #include <gl/geometry_render.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>

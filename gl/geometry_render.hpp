@@ -90,7 +90,7 @@ struct geometry_render<boost::geometry::point_tag>{
 	static void apply(T const& geometry){
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(bg::dimension<T>::value,
-			glVertexPointer_value_type<T>::value, 0, &geometry.get<0>());
+			glVertexPointer_value_type<T>::value, 0, &geometry.template get<0>());
 		glDrawArrays(GL_POINTS, 0, 1);
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
