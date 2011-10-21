@@ -29,6 +29,13 @@ struct graphics : boost::noncopyable{
 		glutCreateWindow(argv[0]);
 		glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	}
+	explicit graphics(int argc, char* argv[], int width, int height, std::string const& name){
+		glutInit(&argc, argv);
+		glutInitWindowSize(width, height);
+		glutCreateWindow(name.c_str());
+		glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+	}
+
 	void run(){
 		glutMainLoop();
 	}
